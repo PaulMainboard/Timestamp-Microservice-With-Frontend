@@ -1,7 +1,9 @@
 
-var input = document.querySelector("#inputArea input[type=text]"); // Timestamp and date input
-var inputBtn = document.querySelector("#inputArea button");  
-var displayTimestampDate = document.getElementById("dates"); // Display area for the timestamp and date.
+let input = document.querySelector("#inputArea input[type=text]"); // Timestamp and date input
+let inputBtn = document.querySelector("#inputArea button");  
+let displayTimestampDate = document.getElementById("dates"); // Display area for the timestamp and date.
+let dateDisplay = document.getElementById("date");
+let timestampDisplay = document.getElementById("timestamp");
 let badInput = "false";
 
 function validateInput() { 
@@ -35,11 +37,34 @@ function validateInput() {
     }
 }
 
-setInterval(validateInput, 500); // ** Check the input box every two seconds to validate the value within it.   
-inputBtn.addEventListener('click', () => {
-    if (badInput) {
-        window.location.href = "../index.php?date=" + input.value;   
-    } else {
+/* Get requested date and timestamp*/
+function getDates() { 
+    if (badInput) { // If the user enter a valid date or timestamp.
+        // Get date and timestamp results from the program.
+        let results;
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                results = JSON.parse(this.responseText);
+                dateDisplay.textContent = "Date: " + results['date'];
+                timestampDisplay.textContent = "Timestamp: " + results['timestamp'];
+                console.log("success");
+            }
+        }
+        request.open("GET", "../index.php?date=" + input.value, true);
+        request.send();
+    } else { // If the entered an invalid date or timestamp.
         alert("Invalid Input");
     }
+}
+
+//setInterval(validateInput, 500); // ** Check the input box every two seconds to validate the value within it.
+
+// If the user press the Enter/Return button while focused of the text inputbox.
+input.addEventListener('keyup', (e) => { 
+    e.preventDefault();
+    if (e.keyCode === 13) {
+        getDates();
+    }
 });
+inputBtn.addEventListener('click',getDates); // If the enter button is press.

@@ -1,19 +1,8 @@
-<?php
-    include "../classes/CheckInputClass.php";
-if (CheckInput::have_parameter($_GET, 'date') && CheckInput::have_parameter($_GET, 'timestamp')) {
-    $date = $_GET['date']; 
-    $timestamp = $_GET['timestamp']; 
-} else {
-    $date = ""; 
-    $timestamp = "";
-}
-
-?>
-
 <html>
     <head>
         <title>Timestamp-Microservice</title>
         <link rel="stylesheet" href="../css/style.css">
+        <meta charset="utf-8"/>
     </head>
     <body>
         <div id="container">
@@ -27,8 +16,8 @@ if (CheckInput::have_parameter($_GET, 'date') && CheckInput::have_parameter($_GE
                     <button>Enter</button>
                 </div>
                 <div id="dates">
-                    <p><?php echo "Timestamp: " . $timestamp;?></p>
-                    <p><?php echo "Date: " . $date ; ?></p>
+                    <p id="date"></p>
+                    <p id="timestamp"></p>
                 </div>
             </div>
         </div>
