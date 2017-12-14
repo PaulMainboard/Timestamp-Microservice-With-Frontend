@@ -48,10 +48,9 @@ function getDates() {
                 results = JSON.parse(this.responseText);
                 dateDisplay.textContent = "Date: " + results['date'];
                 timestampDisplay.textContent = "Timestamp: " + results['timestamp'];
-                console.log("success");
             }
         }
-        request.open("GET", "../index.php?date=" + input.value, true);
+        request.open("GET", "TimestampMicroservice.php?date=" + input.value, true);
         request.send();
     } else { // If the entered an invalid date or timestamp.
         alert("Invalid Input");

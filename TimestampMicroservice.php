@@ -16,5 +16,3 @@ $date_json_obj = new json_obj(/*$date*/ $dateTimestamp->get_date(), /*$timestamp
 $date_json_display = $date_json_obj->encode_to_json(); 
 
 echo $date_json_display; // Return JSON object 
-
-
