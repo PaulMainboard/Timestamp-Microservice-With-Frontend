@@ -81,8 +81,9 @@ body, #container {
 
 */
 
+/* Styling for the directions link and dialog box */
 a.selected {
-    background: #1F7;
+    background: #DDD;
     color: white;
     z-index:100;
 }

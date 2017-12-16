@@ -4,7 +4,8 @@ let inputBtn = document.querySelector("#inputArea button");
 let displayTimestampDate = document.getElementById("dates"); // Display area for the timestamp and date.
 let dateDisplay = document.getElementById("date");
 let timestampDisplay = document.getElementById("timestamp");
-let directions = document.getElementById("directions");
+let directions = document.getElementById("directionsLink");
+let directionsDialog = document.querySelector("#directions div");
 let closeDirections = document.querySelector(".close");
 let badInput = "false";
 
@@ -61,6 +62,30 @@ function getDates() {
 
 //setInterval(validateInput, 500); // ** Check the input box every two seconds to validate the value within it.
 
+/* Remove selected class from the directions link */
+function deselect(e) {
+    $('.pop').slideFadeToggle(function() {
+       try {
+            e.removeClass('selected');   
+        } catch (exception) {
+            e.classList.remove('selected');
+        }
+ 
+    });
+}
+
+/* Instructions dialog box animation transition. */
+$.fn.slideFadeToggle = function(easing, callback) { 
+    return this.animate(
+        { opacity: 'toggle', height: 'toggle'},
+        'fast',
+        easing,
+        callback
+        );
+}
+
+/* Event Listeners */
+
 // If the user press the Enter/Return button while focused of the text inputbox.
 input.addEventListener('keyup', (e) => { 
     e.preventDefault();
@@ -70,40 +95,22 @@ input.addEventListener('keyup', (e) => {
 });
 inputBtn.addEventListener('click',getDates); // If the enter button is press.
 
-// Display site instructions when direction link is clicked.
-function deselect(e) {
-    $('.pop').slideFadeToggle(function() {
-        try {
-            e.removeClass('selected');   
-        } catch (error) {
-            e.classList.remove('selected');
-        }
-    });
-}
 
-$.fn.slideFadeToggle = function(easing, callback) {
-    return this.animate(
-        { opacity: 'toggle', height: 'toggle'},
-        'fast',
-        easing,
-        callback
-        );
-}
-
-directions.addEventListener('click', () => {
-    if ($(this).hasClass('selected')) {
-        deselect($(this));
-    } else {
-        $(this).addClass('selected');
+// Directions Button 
+directions.addEventListener('click', () => { 
+    
+    // If the instructions dialog box is open and appears on the webpage, close it.
+    if (directions.classList.contains('selected')) { 
+        deselect(directions);
+    } else { // If the instructions dialog box is closed and is not appearing on the webpage, open it.
+        directions.classList += 'selected';
         $('.pop').slideFadeToggle();
     }
     return false;
 });
 
 
+// If the close button withing the instructions dialog box is pressed, closed the dialog box.
 closeDirections.addEventListener('click', () => {
     deselect(directions);
-    return false;
 });
-
-console.log(closeDirections);
