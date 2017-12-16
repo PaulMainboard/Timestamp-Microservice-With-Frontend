@@ -4,6 +4,8 @@ let inputBtn = document.querySelector("#inputArea button");
 let displayTimestampDate = document.getElementById("dates"); // Display area for the timestamp and date.
 let dateDisplay = document.getElementById("date");
 let timestampDisplay = document.getElementById("timestamp");
+let directions = document.getElementById("directions");
+let closeDirections = document.querySelector(".close");
 let badInput = "false";
 
 function validateInput() { 
@@ -67,3 +69,41 @@ input.addEventListener('keyup', (e) => {
     }
 });
 inputBtn.addEventListener('click',getDates); // If the enter button is press.
+
+// Display site instructions when direction link is clicked.
+function deselect(e) {
+    $('.pop').slideFadeToggle(function() {
+        try {
+            e.removeClass('selected');   
+        } catch (error) {
+            e.classList.remove('selected');
+        }
+    });
+}
+
+$.fn.slideFadeToggle = function(easing, callback) {
+    return this.animate(
+        { opacity: 'toggle', height: 'toggle'},
+        'fast',
+        easing,
+        callback
+        );
+}
+
+directions.addEventListener('click', () => {
+    if ($(this).hasClass('selected')) {
+        deselect($(this));
+    } else {
+        $(this).addClass('selected');
+        $('.pop').slideFadeToggle();
+    }
+    return false;
+});
+
+
+closeDirections.addEventListener('click', () => {
+    deselect(directions);
+    return false;
+});
+
+console.log(closeDirections);
