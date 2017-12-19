@@ -1,5 +1,7 @@
 
-let input = document.querySelector("#inputArea input[type=text]"); // Timestamp and date input
+var MAIN = (function(m, $) {
+    
+    let input = document.querySelector("#inputArea input[type=text]"); // Timestamp and date input
 let inputBtn = document.querySelector("#inputArea button");  
 let displayTimestampDate = document.getElementById("dates"); // Display area for the timestamp and date.
 let dateDisplay = document.getElementById("date");
@@ -60,6 +62,7 @@ function getDates() {
     }
 }
 
+
 //setInterval(validateInput, 500); // ** Check the input box every two seconds to validate the value within it.
 
 /* Remove selected class from the directions link */
@@ -114,3 +117,7 @@ directions.addEventListener('click', () => {
 closeDirections.addEventListener('click', () => {
     deselect(directions);
 });
+    
+    return m;
+    
+})(MAIN || {}, $);
